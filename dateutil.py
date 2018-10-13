@@ -1,25 +1,38 @@
-from datetime import datetime,timedelta
+import calendar
 
-now = datetime.now()
+# 返回某年某月第n个weekday是几号
+def month_weekday_to_day(year,month,weekday,n):
+    c = calendar.Calendar()
+    weeks = c.monthdayscalendar(year,month)
+    firstweek = weeks[0]
 
-weekdays = {
-    '0':('monday','mon'),
-    '1':('tuesday','tue'),
-    '2':('wednesday','wed'),
-    '3':('thusday','thu'),
-    '4':('friday','fri'),
-    '5':('saturday','sat'),
-    '6':('sunday','sun')
-}
+    if firstweek[weekday] == 0:
+        n += 1
 
-def weekday_to_day(year,month,weekday,count):
-    fd = datetime(year=year,month=month,day=1)
-    wd = fd.weekday()
+    if n > len(weeks):
+        return -1
 
-    weeks = int(count)-1
-    days = 7 * weeks + (weekday-wd+7)%7
+    day = weeks[n-1][weekday] 
 
-    return fd+timedelta(days)
+    return -1 if day == 0 else day
+
+def year_weekday_to_day(year,weekday,n):
+    c = calendar.Calendar()
+
+    
+
 
 if __name__=='__main__':
-    print(weekday_to_day(2018,10,1,3))
+    # print(weekday_to_day(2018,5,4,4))
+    
+
+    # print(calendar.firstweekday())
+    # print(calendar.weekheader(1))
+    # print(calendar.leapdays)
+
+    c = calendar.Calendar()
+    print(c.yeardayscalendar(2016))
+    # print(c.monthdatescalendar(2018,11))
+    # print(c.monthdays2calendar(2018,10))
+
+    # print(c.monthdayscalendar(2018,11))
